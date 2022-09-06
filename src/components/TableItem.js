@@ -5,10 +5,17 @@ const TableItem = (props) => {
     return (
         <>
             <tr>
-                <td>{props.post.id}</td>
+                <td>{props.number}</td>
                 <td>{props.post.title}</td>
                 <td>{props.post.stack}</td>
-                <td><MyButton className="btn btn-outline-danger">delete</MyButton></td>
+                <td>
+                    <MyButton
+                    onClick={() => props.remove(props.post)}
+                    className="btn btn-outline-danger"
+                    >
+                    delete
+                    </MyButton>
+                </td>
             </tr>
         </>
     );
