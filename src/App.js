@@ -7,6 +7,8 @@ import PostForms from "./components/PostForms";
 import MySelect from "./components/UI/select/MySelect";
 import postForms from "./components/PostForms";
 import FilterAndSearch from "./components/FilterAndSearch";
+import MyModal from "./components/UI/modal/MyModal";
+import {usePosts} from "./hooks/useCreatePost";
 
 
 function App() {
@@ -19,22 +21,12 @@ function App() {
     )
 
     const [filter, setFilter] = useState({sort: "", query: ""})
-
-    const SortedPosts = useMemo(() => {
-        console.log('render')
-        if (filter.sort) {
-            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts
-    }, [filter.sort, posts])
-
-    const sortedAndSearchPosts = useMemo(() => {
-        return SortedPosts.filter(p => p.title.toLowerCase().includes(filter.query.toLowerCase()))
-    }, [filter.query, SortedPosts])
-
+    const [modal, setModal] = useState(false)
+    const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query)
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
+        setModal(false)
     }
 
     const removePost = (post) => {
@@ -43,7 +35,15 @@ function App() {
 
     return (
         <div className="app w-50 mx-auto">
-            <PostForms createPost={createPost}/>
+            <button
+                className="btn btn-success align-items-end"
+                onClick={() => setModal(true)}
+            >
+                Add Post
+            </button>
+            <MyModal modal={modal} setModal={setModal}>
+                <PostForms createPost={createPost}/>
+            </MyModal>
             <FilterAndSearch filter={filter} setFilter={setFilter}/>
             {sortedAndSearchPosts.length
                 ? <TableList remove={removePost} posts={sortedAndSearchPosts} title="Programming Language"/>
