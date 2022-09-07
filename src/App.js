@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from "react";
+import React, {useState, useRef, useMemo, useEffect} from "react";
 import "./style/style.css"
 import TableList from "./components/TableList";
 import MyButton from "./components/UI/button/MyButton";
@@ -9,20 +9,21 @@ import postForms from "./components/PostForms";
 import FilterAndSearch from "./components/FilterAndSearch";
 import MyModal from "./components/UI/modal/MyModal";
 import {usePosts} from "./hooks/useCreatePost";
+import PostServiceApi from "./API/PostServiceApi";
+import MyLoader from "./components/UI/loader/MyLoader";
 
 
 function App() {
-    const [posts, setPosts] = useState([
-            {id: 1, title: "JavaScript", stack: "MERN stack"},
-            {id: 2, title: "Python", stack: "Full-stack"},
-            {id: 3, title: "Kotlin", stack: "Android"},
-            {id: 4, title: "VueJs", stack: "Front end"},
-        ]
-    )
+    const [posts, setPosts] = useState([])
 
     const [filter, setFilter] = useState({sort: "", query: ""})
     const [modal, setModal] = useState(false)
     const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query)
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        fetchPosts()
+    }, [])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -33,8 +34,15 @@ function App() {
         setPosts(posts.filter(s => s.id !== post.id))
     }
 
+    async function fetchPosts() {
+        setIsLoading(true)
+        const posts = await PostServiceApi.getAllPosts()
+        setPosts(posts)
+        setIsLoading(false)
+    }
+
     return (
-        <div className="app w-50 mx-auto">
+        <div className="app w-75 mx-auto">
             <button
                 className="btn btn-success align-items-end"
                 onClick={() => setModal(true)}
@@ -45,9 +53,10 @@ function App() {
                 <PostForms createPost={createPost}/>
             </MyModal>
             <FilterAndSearch filter={filter} setFilter={setFilter}/>
-            {sortedAndSearchPosts.length
-                ? <TableList remove={removePost} posts={sortedAndSearchPosts} title="Programming Language"/>
-                : <h6 className="text-danger text-center mt-3">Not found</h6>
+            {isLoading
+                ? <MyLoader/>
+                : <TableList remove={removePost} posts={sortedAndSearchPosts} title="POSTS"/>
+
             }
         </div>
     );

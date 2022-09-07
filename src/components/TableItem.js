@@ -3,10 +3,13 @@ import MyButton from "./UI/button/MyButton";
 
 const TableItem = (props) => {
     return (
-        <div className="d-flex justify-content-between border-bottom p-2">
-            <p>{props.number}</p>
-            <p>{props.post.title}</p>
-            <p>{props.post.stack}</p>
+        <div className="d-flex justify-content-between border my-2 p-3 align-items-center">
+            <div>
+            <span>{props.number}.
+                <b> {props.post.title}</b>
+            </span>
+                <p className="lead">{props.post.body}</p>
+            </div>
             <p>
                 <MyButton
                     onClick={() => props.remove(props.post)}
