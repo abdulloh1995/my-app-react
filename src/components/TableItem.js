@@ -5,7 +5,7 @@ const TableItem = (props) => {
     return (
         <div className="d-flex justify-content-between border my-2 p-3 align-items-center">
             <div>
-            <span>{props.number}.
+            <span>{props.post.id}.
                 <b> {props.post.title}</b>
             </span>
                 <p className="lead">{props.post.body}</p>
