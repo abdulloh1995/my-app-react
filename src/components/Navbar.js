@@ -1,7 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
+import {AuthContext} from "../context";
 
 const Navbar = () => {
+    const {isAuth, setIsAuth} = useContext(AuthContext)
+
+    const logout = () => {
+        setIsAuth(false)
+        localStorage.removeItem('auth')
+    }
     return (
         <div className="container">
             <header
@@ -17,7 +24,7 @@ const Navbar = () => {
 
                 <div className="col-md-3 text-end">
                     <button type="button" className="btn btn-outline-primary me-2">Login</button>
-                    <button type="button" className="btn btn-primary">Sign-up</button>
+                    <button type="button" className="btn btn-primary" onClick={logout}>LogOut</button>
                 </div>
             </header>
         </div>
