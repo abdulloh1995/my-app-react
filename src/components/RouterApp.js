@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import Game from "../navigationPage/Game";
 import MainPage from "../mainPage/MainPage";
 import Error from "../mainPage/Error";
-import {privateRoutes, publicRoutes} from "./router/Route";
+import {privateRoutes, publicRoutes} from "../router/Route";
 import {AuthContext} from "../context";
 
 const RouterApp = () => {

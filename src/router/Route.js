@@ -1,7 +1,7 @@
-import Game from "../../navigationPage/Game";
-import MainPage from "../../mainPage/MainPage";
-import Error from "../../mainPage/Error";
-import Login from "../../navigationPage/Login";
+import Game from "../navigationPage/Game";
+import MainPage from "../mainPage/MainPage";
+import Error from "../mainPage/Error";
+import Login from "../navigationPage/Login";
 
 export const privateRoutes = [
     {path: "/game", element: <Game/>},

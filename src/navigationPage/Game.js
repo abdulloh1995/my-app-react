@@ -1,9 +1,10 @@
 import React from 'react';
-
+import '../style/game.css'
+import ItemsList from "../components/Game/ItemsList";
 const Game = () => {
     return (
-        <div>
-            <h1>Hello</h1>
+        <div className="game">
+            <ItemsList/>
         </div>
     );
 };
