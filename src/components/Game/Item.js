@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Box, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -40,6 +40,19 @@ const Item = (props) => {
 
     const classes = useStyles()
     const {votes, text} = props
+    const getEmoji = useCallback((votes) => {
+        if (votes >= 9) {
+            return "em em-rolling_on_the_floor_laughing"
+        }else if (votes >= 6) {
+            return "em em-laughing"
+        }else if (votes >= 3) {
+            return  "em em-slightly_smiling_face"
+        }else if (votes >= 0) {
+            return "em em-neutral_face"
+        }else {
+            return "em em-angry"
+        }
+    }, [])
     return (
         <Box className={classes.item}>
             <Box className={classes.itemBtn}>
@@ -51,7 +64,7 @@ const Item = (props) => {
                 {text}
             </Box>
             <Box className={classes.itemEmoji}>
-                <i className="em em-laughing"></i>
+                <i className={getEmoji(votes)}></i>
             </Box>
         </Box>
     );
