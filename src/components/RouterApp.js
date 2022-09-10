@@ -13,13 +13,13 @@ const RouterApp = () => {
             ?
             <Routes>
                 {privateRoutes.map(rout => (
-                    <Route path={rout.path} element={rout.element}/>
+                    <Route path={rout.path} element={rout.element} key={rout.path}/>
                 ))}
             </Routes>
             :
             <Routes>
                 {publicRoutes.map(rout => (
-                    <Route path={rout.path} element={rout.element}/>
+                    <Route path={rout.path} element={rout.element} key={rout.path}/>
                 ))}
             </Routes>
     );

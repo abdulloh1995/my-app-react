@@ -36,18 +36,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Item = () => {
+const Item = (props) => {
 
     const classes = useStyles()
+    const {votes, text} = props
     return (
         <Box className={classes.item}>
             <Box className={classes.itemBtn}>
-                <ArrowUpwardIcon className={classes.arrowIcon}/>
-                <Typography variant="h5">0</Typography>
-                <ArrowDownwardIcon className={classes.arrowIcon}/>
+                <ArrowUpwardIcon onClick={props.upVote} className={classes.arrowIcon}/>
+                <Typography variant="h5">{votes}</Typography>
+                <ArrowDownwardIcon onClick={props.downVote} className={classes.arrowIcon}/>
             </Box>
             <Box className={classes.itemText}>
-                This is a item ha hahaha
+                {text}
             </Box>
             <Box className={classes.itemEmoji}>
                 <i className="em em-laughing"></i>
